@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "volttron-postgresql-historian"
-version = "2.0.0rc0"
+version = "2.0.0rc1"
 description = "VOLTTRON historian agent that stores data in a PostgreSQL database. It extends the SQLHistorian class."
 authors = ["VOLTTRON Team <volttron@pnnl.gov>"]
 license = "Apache License 2.0"

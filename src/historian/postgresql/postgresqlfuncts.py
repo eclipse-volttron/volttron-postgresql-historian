@@ -33,7 +33,8 @@ from psycopg2 import InterfaceError, ProgrammingError, errorcodes
 from psycopg2.sql import Identifier, Literal, SQL
 from psycopg2.extras import execute_values
 
-from volttron.utils import (jsonapi, setup_logging)
+import volttron.utils.jsonapi as jsonapi
+from volttron.client.logs import setup_logging
 
 from historian.sql import DbDriver
 

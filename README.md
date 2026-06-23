@@ -1,9 +1,8 @@
 [![Eclipse VOLTTRON™](https://img.shields.io/badge/Eclips%20VOLTTRON--red.svg)](https://volttron.readthedocs.io/en/latest/)
 ![Python 3.10](https://img.shields.io/badge/python-3.10-blue.svg)
 ![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)
-[![Run Pytests](https://github.com/eclipse-volttron/volttron-postgresql-historian/actions/workflows/run-test.yml/badge.svg)](https://github.com/eclipse-volttron/volttron-postgresql-historian/actions/workflows/run-test.yml)
+[![Run Pytests](https://github.com/eclipse-volttron/volttron-postgresql-historian/actions/workflows/run-tests.yml/badge.svg)](https://github.com/eclipse-volttron/volttron-postgresql-historian/actions/workflows/run-tests.yml)
 [![pypi version](https://img.shields.io/pypi/v/volttron-postgresql-historian.svg)](https://pypi.org/project/volttron-postgresql-historian/)
-![Passing?](https://github.com/VOLTTRON/volttron-postgresql-historian/actions/workflows/run-tests.yml/badge.svg)
 
 VOLTTRON historian agent that stores data into a PostgreSQL database
 

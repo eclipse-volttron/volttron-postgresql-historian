@@ -27,6 +27,7 @@ PostgreSQL historian supports two configuration parameters
     
    - connection -  This is a mandatory parameter with type indicating the type of sql historian (i.e. postgresql) and params containing the database access details
    - tables_def - Optional parameter to provide custom table names for topics, data, and metadata.
+   - Optional, You can also override any parameter defined by base historian. See configuration of [base historian class](https://eclipse-volttron.readthedocs.io/en/latest/external-docs/volttron-lib-base-historian/index.html#configuration)
     
 The configuration can be in a json or yaml formatted file. The following examples show minimal connection 
 configurations for a psycopg2-based historian. Other options are available and are [documented here](https://www.psycopg.org/docs/module.html#psycopg2.connect) 
@@ -107,30 +108,23 @@ add \'timescale_dialect: true\' to the connection params in the agent config as 
     }
 ```
 
-## Requirements
+## Pre-requisite
 
- - Python >= 3.10
- - psycopg2 library
+- Before installing this agent, VOLTTRON (>=11.0.0rc0) should be installed and running.  Its virtual environment should be active.
+Information on how to install of the VOLTTRON platform can be found
+[here](https://github.com/eclipse-volttron/volttron-core/tree/v10)
+- psycopg2 library - this should be installed using the vctl install-lib command. 
 
 ## Installation
 
-1. Create and activate a virtual environment.
+1. In the virtual environment running volttron, run the following command to install psycopg2
 
    ```shell
-    python -m venv env
-    source env/bin/activate
+    vctl install-lib psycopg2-binary
     ```
-
-2. Installing volttron-postgresql-historian requires a running volttron instance and the psycopg2 library 
-
-    ```shell
-    pip install volttron
-    pip install psycopg2-binary
-    
-    # Start platform with output going to volttron.log
-    volttron -vv -l volttron.log &
-    ```
-3. Setup database
+   The above command adds the psycopg2 to the poetry dependency list in volttron home, so that poetry can resolve any dependency version mismatch. 
+   
+2. Setup database
    
    If this is not a development environment we highly recommend that you create the database and database tables using
    a user with appropriate permissions. This way the database user used by the historian need not have CREATE privileges
@@ -193,8 +187,17 @@ add \'timescale_dialect: true\' to the connection params in the agent config as 
 
 5. Install and start the volttron-postgresql-historian.
 
+    - You can either pass the configuration file directly using --agent-config 
+
     ```shell
     vctl install volttron-postgresql-historian --agent-config <path to configuration> --start
+    ```
+
+    - OR  not pass the config at install time, and  use the configuration store for historian's configuration using the command
+
+    ```shell
+    vctl install volttron-postgresql-historian --vip-identity <unique id> --start
+    vctl config store <vip-identity of postgresql historian> config <path to json config file>
     ```
 
 6. View the status of the installed agent

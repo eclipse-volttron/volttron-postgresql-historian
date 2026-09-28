@@ -9,6 +9,12 @@ This historian also supports TimescaleDB\'s high performance Hypertable backend 
 The PostgreSQL database driver supports recent PostgreSQL versions.  It was tested on 10.x, but should work with 9.x
 and 11.x.
 
+Pre-requisites
+**************
+
+- Working modular VOLTTRON environment. Please refer to :ref:`VOLTTRON Instanll Instructions <Platform-Installation>`
+
+
 User Access Requirements
 ************************
 1. The user must have SELECT, INSERT, and UPDATE privileges on historian tables.
@@ -137,39 +143,27 @@ configurations exposed by the SQLHistorian and BaseHistorian. Please refer to
 :ref:`SQL Historian <SQLHistorian-Library>` and :ref:`Base Historian Configurations <Base-Historian-Configurations>`
 for more details
 
-Requirements
-************
-
--  Python >= 3.8
--  psycopg2 library
 
 Installation
 ************
 
-1. Create and activate a virtual environment.
+1. Start volttron instance from your activated volttron virtual environment
 
-   .. code:: shell
-
-       python -m venv env
-       source env/bin/activate
-
-2. Installing volttron-postgresql-historian requires a running volttron
-   instance and the psycopg2 library
-
-   .. code:: shell
-
-      pip install volttron
-      pip install psycopg2-binary
-
-      # Start platform with output going to volttron.log
-      volttron -vv -l volttron.log &
-
-3. Setup database
+2. Setup database
 
    If this is not a development environment we highly recommend that you
    create the database and database tables using a user with appropriate
    permissions. This way the database user used by the historian need
    not have CREATE privileges.
+
+   Install Postgres
+   ----------------
+
+   .. code:: shell
+
+      sudo apt install -y postgresql postgresql-contrib
+      sudo systemctl enable --now postgresql4
+
 
    | Postgres historian expects two tables
 
@@ -182,7 +176,7 @@ Installation
       use a different name please specify it as part of "tables_def"
       configuration parameter in agent config. See (:ref:`example configuration<postgresql-configuration-yaml-example>`)
 
-   Below are the sql statements to create database and tables.
+   Below are the sql statements to create user, database and tables.
 
     Create Database:
 

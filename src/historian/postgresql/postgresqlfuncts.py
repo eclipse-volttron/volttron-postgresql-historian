@@ -177,18 +177,13 @@ class PostgreSqlFuncts(DbDriver):
                     'ts TIMESTAMP NOT NULL, '
                     'topic_id INTEGER NOT NULL, '
                     'value_string TEXT NOT NULL, '
-                    'UNIQUE (topic_id, ts)'
+                    'PRIMARY KEY (topic_id, ts)'
                 ')').format(Identifier(self.data_table)))
             if self.timescale_dialect:
                 _log.debug("trying to create hypertable")
                 self.execute_stmt(SQL(
                     "SELECT create_hypertable({}, 'ts', if_not_exists => true)").format(
                     Literal(self.data_table)))
-                self.execute_stmt(SQL(
-                    'CREATE INDEX IF NOT EXISTS {} ON {} (topic_id, ts)').format(
-                    Identifier(f"idx_{self.data_table}"),
-                    Identifier(self.data_table))
-                )
             else:
                 self.execute_stmt(SQL(
                     'CREATE INDEX IF NOT EXISTS {} ON {} (ts ASC)').format(

@@ -26,8 +26,8 @@ import ast
 import contextlib
 import logging
 import copy
+from datetime import timezone
 
-import pytz
 import psycopg2
 from psycopg2 import InterfaceError, ProgrammingError, errorcodes
 from psycopg2.sql import Identifier, Literal, SQL
@@ -235,10 +235,10 @@ class PostgreSqlFuncts(DbDriver):
                 'FROM {}\n'
                 'WHERE topic_id = {}'
             ).format(Identifier(table_name), topic_id)]
-            if start and start.tzinfo != pytz.UTC:
-                start = start.astimezone(pytz.UTC)
-            if end and end.tzinfo != pytz.UTC:
-                end = end.astimezone(pytz.UTC)
+            if start:
+                start = start.astimezone(timezone.utc)
+            if end:
+                end = end.astimezone(timezone.utc)
             if start and start == end:
                 query.append(SQL(' AND ts = {}').format(Literal(start)))
             else:
